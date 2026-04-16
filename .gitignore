@@ -1,0 +1,10 @@
+.actrc
+.build
+.phpunit.cache
+coverage
+node_modules
+playwright-report
+src/Resources/public
+test-results
+var
+vendor
