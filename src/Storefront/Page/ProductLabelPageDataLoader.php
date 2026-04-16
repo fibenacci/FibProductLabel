@@ -34,11 +34,11 @@ final class ProductLabelPageDataLoader
         foreach ($labels as $label) {
             $labelIds[] = $label->getId();
 
-            $name     = $label->getTranslation('name');
+            $name     = $this->getTranslatedString($label->getTranslated(), 'name');
             $color    = $label->getColor();
             $priority = $label->getPriority();
 
-            if (!empty($name) || !empty($color) || !empty($priority)) {
+            if ($name === '' && $color === '' && $priority === 0) {
                 continue;
             }
 
@@ -57,5 +57,18 @@ final class ProductLabelPageDataLoader
         }
 
         return $collection;
+    }
+
+    /**
+     * Leave this here for the specific use-case and just prevent type narrow issue on mixed stuff above.
+     * for now this kind of trade-off is fair enough.
+     *
+     * @param array<string, mixed> $translated
+     */
+    private function getTranslatedString(array $translated, string $key, string $default = ''): string
+    {
+        $value = $translated[$key] ?? null;
+
+        return is_string($value) ? $value : $default;
     }
 }

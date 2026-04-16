@@ -22,6 +22,9 @@ final class ProductLabelCacheInvalidationSubscriberTest extends TestCase
 {
     private CacheInvalidator&MockObject $cacheInvalidator;
 
+    /**
+     * @var EntityRepository<EntityCollection<\Shopware\Core\Framework\DataAbstractionLayer\Entity>>&MockObject
+     */
     private EntityRepository&MockObject $mappingRepository;
 
     protected function setUp(): void
