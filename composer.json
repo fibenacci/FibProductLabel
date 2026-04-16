@@ -1,0 +1,44 @@
+{
+  "name": "fib/product-label",
+  "description": "Product label management for Shopware 6",
+  "type": "shopware-platform-plugin",
+  "license": "MIT",
+  "version": "1.0.0",
+  "require": {
+    "shopware/core": "*",
+    "shopware/storefront": "*"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.68",
+    "phpstan/phpstan": "^1.11",
+    "phpunit/phpunit": "^10.5"
+  },
+  "extra": {
+    "shopware-plugin-class": "Fib\\ProductLabel\\FibProductLabel",
+    "label": {
+      "de-DE": "Fib Product Label",
+      "en-GB": "Fib Product Label"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Fib\\ProductLabel\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Fib\\ProductLabel\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon.dist src tests/Unit tests/Integration",
+    "php-cs-fixer": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes",
+    "php-cs-fixer:check": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --diff --allow-risky=yes",
+    "phpunit": "vendor/bin/phpunit"
+  },
+  "config": {
+    "allow-plugins": {
+      "symfony/runtime": true
+    }
+  }
+}
