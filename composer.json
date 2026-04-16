@@ -32,8 +32,8 @@
   },
   "scripts": {
     "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon.dist src tests/Unit tests/Integration",
-    "php-cs-fixer": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes",
-    "php-cs-fixer:check": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --diff --allow-risky=yes",
+    "csfixer": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes",
+    "csfixer:check": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --diff --allow-risky=yes",
     "phpunit": "vendor/bin/phpunit"
   },
   "config": {

@@ -51,13 +51,12 @@ jobs:
       - name: PHP-CS-Fixer (Coding Style)
         run: |
           CONTAINER_NAME="shop-${{ strategy.job-index }}"
-          docker exec $CONTAINER_NAME bash -c 'cd /var/www/html/custom/plugins/FibProductLabel && vendor/bin/php-cs-fixer check --config=.php-cs-fixer.dist.php --diff --allow-risky=yes --using-cache=no'
+          docker exec $CONTAINER_NAME bash -c 'cd /var/www/html/custom/plugins/FibProductLabel && composer run csfixer:check'
 
       - name: PHPStan (Static Analysis)
         run: |
           CONTAINER_NAME="shop-${{ strategy.job-index }}"
-          # Run PHPStan from shop root to avoid relative path issues in core neon files
-          docker exec $CONTAINER_NAME bash -c 'vendor/bin/phpstan analyse -c custom/plugins/FibProductLabel/phpstan.neon.dist custom/plugins/FibProductLabel/src'
+          docker exec $CONTAINER_NAME bash -c 'cd /var/www/html/custom/plugins/FibProductLabel && composer run phpstan'
 
       - name: Install and Activate Plugin
         run: |
@@ -69,7 +68,7 @@ jobs:
       - name: PHPUnit (Tests)
         run: |
           CONTAINER_NAME="shop-${{ strategy.job-index }}"
-          docker exec $CONTAINER_NAME bash -c 'cd /var/www/html/custom/plugins/FibProductLabel && vendor/bin/phpunit -c phpunit.xml'
+          docker exec $CONTAINER_NAME bash -c 'cd /var/www/html/custom/plugins/FibProductLabel && composer run phpunit'
 
       - name: Stop Docker
         if: always()
