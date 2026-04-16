@@ -1,0 +1,11 @@
+{
+  "fib-product-label": {
+    "detail": {
+      "title": "Produktlabels",
+      "placeholder": "Produktlabels Produktlabels"
+    },
+    "listing": {
+      "title": "Labels"
+    }
+  }
+}

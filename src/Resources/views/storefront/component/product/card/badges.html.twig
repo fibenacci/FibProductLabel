@@ -1,0 +1,16 @@
+{% sw_extends '@Storefront/storefront/component/product/card/badges.html.twig' %}
+
+{% block component_product_badges %}
+    {{ parent() }}
+
+    {% set labels = product.extensions.fibProductLabels %}
+
+    {% if labels is not empty %}
+        <div class="product-badges product-badges--product-labels px-2">
+            {% sw_include '@FibProductLabel/storefront/component/product-label-list.html.twig' with {
+                labels: labels,
+                modifier: 'badge'
+            } %}
+        </div>
+    {% endif %}
+{% endblock %}

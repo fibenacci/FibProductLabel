@@ -1,0 +1,27 @@
+.product-labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+.product-label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.35rem;
+    padding: 0.24rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: var(--product-label-color, #1f2937);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    text-transform: uppercase;
+    box-shadow: 0 0.15rem 0.45rem rgba(15, 23, 42, 0.14);
+}
+
+.product-label--detail {
+    font-size: 0.78rem;
+}

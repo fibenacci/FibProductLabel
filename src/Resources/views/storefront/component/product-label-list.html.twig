@@ -1,0 +1,13 @@
+{% block fib_product_label_list %}
+    {% if labels is not empty %}
+        <div class="product-labels{% if modifier is defined %} product-labels--{{ modifier }}{% endif %}">
+            {% for label in labels %}
+                <span class="product-label"
+                      style="--product-label-color: {{ label.color }};"
+                      title="{{ label.translated.name|default(label.name) }}">
+                    {{ label.translated.name|default(label.name) }}
+                </span>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

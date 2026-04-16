@@ -1,0 +1,16 @@
+{% sw_extends '@Storefront/storefront/component/buy-widget/buy-widget.html.twig' %}
+
+{% block buy_widget_ordernumber_container %}
+    {{ parent() }}
+
+    {% set labels = product.extensions.fibProductLabels %}
+
+    {% if labels is not empty %}
+        <div class="product-detail-labels">
+            {% sw_include '@FibProductLabel/storefront/component/product-label-list.html.twig' with {
+                labels: labels,
+                modifier: 'detail'
+            } %}
+        </div>
+    {% endif %}
+{% endblock %}
