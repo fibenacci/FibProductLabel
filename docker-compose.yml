@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  shopware:
+    image: dockware/dev:latest
+    container_name: fib_product_label_dev
+    ports:
+      - "80:80"
+      - "443:443"
+      - "3306:3306"
+      - "22:22"
+    environment:
+      - XDEBUG_ENABLED=0
+      - PHP_VERSION=8.2
+    volumes:
+      - .:/var/www/html/custom/plugins/FibProductLabel
+    working_dir: /var/www/html
+    entrypoint: ./custom/plugins/FibProductLabel/scripts/dev-setup.sh
