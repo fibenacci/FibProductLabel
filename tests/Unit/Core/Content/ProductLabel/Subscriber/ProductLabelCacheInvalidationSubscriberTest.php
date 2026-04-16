@@ -1,7 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Fib\ProductLabel\Tests\Unit\Core\Content\ProductLabel\Cache;
 
+use Fib\ProductLabel\Core\Content\ProductLabel\Cache\ProductLabelCacheInvalidationSubscriber;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Framework\Adapter\Cache\CacheInvalidator;
@@ -14,7 +17,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Write\WriteResult;
 use Shopware\Core\Framework\Uuid\Uuid;
-use Fib\ProductLabel\Core\Content\ProductLabel\Cache\ProductLabelCacheInvalidationSubscriber;
 
 final class ProductLabelCacheInvalidationSubscriberTest extends TestCase
 {
@@ -24,15 +26,15 @@ final class ProductLabelCacheInvalidationSubscriberTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->cacheInvalidator = $this->createMock(CacheInvalidator::class);
+        $this->cacheInvalidator  = $this->createMock(CacheInvalidator::class);
         $this->mappingRepository = $this->createMock(EntityRepository::class);
     }
 
     public function testInvalidatesLabelAndProductRouteTagsWhenLabelChanges(): void
     {
-        $labelId = Uuid::randomHex();
+        $labelId   = Uuid::randomHex();
         $productId = Uuid::randomHex();
-        $context = Context::createDefaultContext();
+        $context   = Context::createDefaultContext();
 
         $mappingEntity = new class($productId) extends \Shopware\Core\Framework\DataAbstractionLayer\Entity {
             public function __construct(private readonly string $productId)
@@ -100,13 +102,13 @@ final class ProductLabelCacheInvalidationSubscriberTest extends TestCase
 
     public function testInvalidatesTagsWhenMappingChanges(): void
     {
-        $labelId = Uuid::randomHex();
+        $labelId   = Uuid::randomHex();
         $productId = Uuid::randomHex();
-        $context = Context::createDefaultContext();
+        $context   = Context::createDefaultContext();
 
         $writeResult = $this->createMock(WriteResult::class);
         $writeResult->method('getPayload')->willReturn([
-            'productId' => $productId,
+            'productId'      => $productId,
             'productLabelId' => $labelId,
         ]);
 

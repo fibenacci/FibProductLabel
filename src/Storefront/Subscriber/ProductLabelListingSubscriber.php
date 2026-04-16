@@ -1,10 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Fib\ProductLabel\Storefront\Subscriber;
 
+use Fib\ProductLabel\Storefront\Page\ProductLabelPageDataLoader;
 use Shopware\Core\Content\Product\Events\ProductListingResultEvent;
 use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity;
-use Fib\ProductLabel\Storefront\Page\ProductLabelPageDataLoader;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ProductLabelListingSubscriber implements EventSubscriberInterface
