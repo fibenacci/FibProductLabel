@@ -1,0 +1,45 @@
+{
+  "fib-product-label": {
+    "module": {
+      "title": "Product labels",
+      "description": "Manage reusable storefront labels for products.",
+      "navigation": "Product labels"
+    },
+    "list": {
+      "title": "Product labels",
+      "buttonCreate": "Create label",
+      "columnName": "Name",
+      "columnColor": "Color",
+      "columnPriority": "Priority",
+      "columnActive": "Active",
+      "columnValidFrom": "Valid from",
+      "columnValidTo": "Valid to",
+      "emptyState": "Create your first product label",
+      "deleteConfirm": "Do you want to delete the label “%name%”?"
+    },
+    "detail": {
+      "title": "Assigned products",
+      "titleNew": "Create product label",
+      "titleEdit": "Edit product label",
+      "cardGeneral": "Label information",
+      "buttonSave": "Save",
+      "buttonCancel": "Cancel",
+      "fieldName": "Label name",
+      "fieldColor": "Color",
+      "fieldPriority": "Priority",
+      "fieldActive": "Active",
+      "fieldValidFrom": "Valid from",
+      "fieldValidTo": "Valid to",
+      "fieldProducts": "Products",
+      "messageSaveError": "The product label could not be saved.",
+      "messageLoadError": "The product label could not be loaded."
+    },
+    "productAssignment": {
+      "tabTitle": "Labels",
+      "cardTitle": "Assigned product labels",
+      "cardDescription": "Assign reusable labels that appear on the product detail page and in product boxes.",
+      "placeholder": "Select labels...",
+      "emptyState": "No labels are assigned to this product yet."
+    }
+  }
+}

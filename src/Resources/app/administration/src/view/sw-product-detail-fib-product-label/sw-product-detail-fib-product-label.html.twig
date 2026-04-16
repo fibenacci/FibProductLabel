@@ -1,0 +1,18 @@
+<div class="sw-product-detail-fib-product-label">
+    <mt-card :title="$tc('fib-product-label.productAssignment.cardTitle')"
+             position-identifier="fib-product-label-assignment">
+        <p class="sw-product-detail-fib-product-label__description">
+            {{ $tc('fib-product-label.productAssignment.cardDescription') }}
+        </p>
+
+        <sw-entity-multi-select :entity-collection="labelCollection"
+                                :placeholder="$tc('fib-product-label.productAssignment.placeholder')"
+                                :label="$tc('fib-product-label.productAssignment.cardTitle')"
+                                @update:entity-collection="onUpdateLabelCollection"/>
+
+        <p v-if="labelCollection && labelCollection.length === 0"
+           class="sw-product-detail-fib-product-label__empty">
+            {{ $tc('fib-product-label.productAssignment.emptyState') }}
+        </p>
+    </mt-card>
+</div>

@@ -1,0 +1,122 @@
+{% block fib_product_label_list %}
+    <sw-page class="fib-product-label-list">
+        <template #search-bar>
+            <sw-search-bar
+                    initial-search-type="fib_product_label"
+                    :initial-search="term"
+                    @search="onSearch"
+            />
+        </template>
+
+        <template #smart-bar-header>
+            <h2>
+                {{ $tc('fib-product-label.list.title') }}
+                <span v-if="!isLoading"
+                      class="sw-page__smart-bar-amount">
+                ({{ total }})
+            </span>
+            </h2>
+        </template>
+
+        <template #smart-bar-actions>
+            <mt-button class="fib-product-label-list__create-button"
+                       variant="primary"
+                       :disabled="!acl.can('fib_product_label.creator')"
+                       @click="onCreateLabel">
+                {{ $tc('fib-product-label.list.buttonCreate') }}
+            </mt-button>
+        </template>
+
+        <template #content>
+            <sw-entity-listing v-if="labels"
+                               :items="labels"
+                               :columns="columns"
+                               :repository="labelRepository"
+                               :show-selection="false"
+                               :show-settings="false"
+                               :full-page="true"
+                               :allow-edit="acl.can('fib_product_label.editor')"
+                               :allow-delete="acl.can('fib_product_label.deleter')"
+                               :disable-data-fetching="true"
+                               :is-loading="isLoading"
+                               :sort-by="sortBy"
+                               :sort-direction="sortDirection"
+                               identifier="fib-product-label-list"
+                               @column-sort="onColumnSort"
+                               @page-change="onPageChange">
+                <template #column-name="{ column, item }">
+                    <router-link v-if="column.routerLink"
+                                 :to="{ name: column.routerLink, params: { id: item.id } }">
+                        {{ item.translated.name || item.name }}
+                    </router-link>
+                </template>
+
+                <template #column-color="{ item }">
+                    <span class="fib-product-label-list__swatch"
+                          :style="{ backgroundColor: item.color }"
+                          :title="item.color"
+                    />
+                </template>
+
+                <template #column-validFrom="{ item }">
+                    <span v-if="item.validFrom">{{ dateFilter(item.validFrom, { month: '2-digit', day: '2-digit' }) }}</span>
+                    <span v-else>-</span>
+                </template>
+
+                <template #column-validTo="{ item }">
+                    <span v-if="item.validTo">{{ dateFilter(item.validTo, { month: '2-digit', day: '2-digit' }) }}</span>
+                    <span v-else>-</span>
+                </template>
+
+                <template #column-active="{ item }">
+                    <mt-icon :name="item.active ? 'regular-checkmark-xs' : 'regular-times-s'"
+                             :class="item.active ? 'is--active' : 'is--inactive'"
+                    />
+                </template>
+
+                <template #actions="{ item }">
+                    <sw-context-menu-item @click="onEditLabel(item.id)">
+                        {{ $tc('global.default.edit') }}
+                    </sw-context-menu-item>
+                    <sw-context-menu-item variant="danger"
+                                          @click="onDeleteLabel(item.id)">
+                        {{ $tc('global.default.delete') }}
+                    </sw-context-menu-item>
+                </template>
+
+                <template #action-modals="{ item }">
+                    <sw-modal v-if="deleteId === item.id"
+                              variant="small"
+                              @modal-close="onCloseDeleteModal">
+                        <p>
+                            {{ $tc('fib-product-label.list.deleteConfirm', 0, { name: item.translated.name }) }}
+                        </p>
+
+                        <template #modal-footer>
+                            <mt-button
+                                    variant="secondary"
+                                    size="small"
+                                    @click="onCloseDeleteModal">
+                                {{ $tc('global.default.cancel') }}
+                            </mt-button>
+                            <mt-button variant="critical"
+                                       size="small"
+                                       @click="onConfirmDelete(item.id)">
+                                {{ $tc('global.default.delete') }}
+                            </mt-button>
+                        </template>
+                    </sw-modal>
+                </template>
+            </sw-entity-listing>
+
+            <sw-empty-state v-else-if="!isLoading"
+                            :title="$tc('fib-product-label.list.emptyState')"
+                            icon="regular-tag">
+                <mt-button variant="primary"
+                           @click="onCreateLabel">
+                    {{ $tc('fib-product-label.list.buttonCreate') }}
+                </mt-button>
+            </sw-empty-state>
+        </template>
+    </sw-page>
+{% endblock %}

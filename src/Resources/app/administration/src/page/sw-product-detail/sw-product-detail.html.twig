@@ -1,0 +1,10 @@
+{% block sw_product_detail_content_tabs_reviews %}
+    {% parent %}
+
+    <sw-tabs-item v-if="acl.can('product.editor')"
+                  class="sw-product-detail__tab-fib-product-labels"
+                  :route="{ name: 'sw.product.detail.fib.product.labels', params: { id: $route.params.id } }"
+                  :title="$tc('fib-product-label.productAssignment.tabTitle')">
+        {{ $tc('fib-product-label.productAssignment.tabTitle') }}
+    </sw-tabs-item>
+{% endblock %}

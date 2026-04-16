@@ -1,0 +1,102 @@
+{% block fib_product_label_detail %}
+    <sw-page class="fib-product-label-detail">
+        <template #smart-bar-header>
+            <h2>{{ title }}</h2>
+        </template>
+
+        <template #smart-bar-actions>
+            <mt-button variant="secondary"
+                       :disabled="isLoading"
+                       @click="onCancel">
+                {{ $tc('fib-product-label.detail.buttonCancel') }}
+            </mt-button>
+
+            <sw-button-process v-model:process-success="isSaveSuccessful"
+                               variant="primary"
+                               :is-loading="isLoading"
+                               :disabled="isLoading || !allowSave"
+                               @click.prevent="onSave">
+                {{ $tc('fib-product-label.detail.buttonSave') }}
+            </sw-button-process>
+        </template>
+
+        <template #language-switch>
+            <sw-language-switch :save-changes-function="saveOnLanguageChange"
+                                :abort-change-function="abortOnLanguageChange"
+                                @on-change="onChangeLanguage"/>
+        </template>
+
+        <template #content>
+            <sw-card-view>
+                <template v-if="isLoading">
+                    <sw-skeleton/>
+                    <sw-skeleton/>
+                </template>
+
+                <template v-else-if="productLabel">
+                    <mt-card :title="$tc('fib-product-label.detail.cardGeneral')"
+                             position-identifier="fib-product-label-detail">
+                        <sw-container columns="repeat(auto-fit, minmax(250px, 1fr))"
+                                      gap="0px 24px">
+                            <mt-text-field v-model="productLabel.name"
+                                           required
+                                           :label="$tc('fib-product-label.detail.fieldName')"
+                                           :placeholder="$tc('fib-product-label.detail.fieldName')"/>
+
+                            <sw-colorpicker v-model:value="productLabel.color"
+                                            required
+                                            :label="$tc('fib-product-label.detail.fieldColor')"/>
+
+                            <mt-number-field v-model="productLabel.priority"
+                                             :label="$tc('fib-product-label.detail.fieldPriority')"
+                                             :step="1"/>
+
+                            <mt-switch v-model="productLabel.active"
+                                       :label="$tc('fib-product-label.detail.fieldActive')"/>
+
+                            <sw-datepicker v-model:value="productLabel.validFrom"
+                                           :label="$tc('fib-product-label.detail.fieldValidFrom')"
+                                           :placeholder="$tc('sw-datepicker.date.placeholder')"/>
+
+                            <sw-datepicker v-model:value="productLabel.validTo"
+                                           :label="$tc('fib-product-label.detail.fieldValidTo')"
+                                           :placeholder="$tc('sw-datepicker.date.placeholder')"/>
+                        </sw-container>
+                    </mt-card>
+
+                    <mt-card :title="$tc('fib-product-label.detail.title')"
+                             position-identifier="fib-product-label-detail-products">
+                        <sw-entity-multi-select
+                                :entity-collection="productLabel.products"
+                                entity-name="product"
+                                :label="$tc('fib-product-label.detail.fieldProducts')"
+                                :placeholder="$tc('fib-product-label.detail.fieldProducts')"
+                                @update:entity-collection="onProductLabelChange">
+                            <template #result-item="{
+                                    item,
+                                    index,
+                                    labelProperty,
+                                    searchTerm,
+                                    highlightSearchTerm,
+                                    isSelected,
+                                    addItem,
+                                    onClickItem
+                                }">
+                                <sw-select-result :selected="isSelected(item)"
+                                                  v-bind="{ item, index }"
+                                                  @item-select="addItem">
+                                    <sw-highlight-text :text="item[labelProperty] || item.name || item.translated?.name"
+                                                       :searchTerm="searchTerm"/>
+                                </sw-select-result>
+                            </template>
+
+                            <template #selection-label-property="{ item, labelProperty }">
+                                {{ item[labelProperty] || item.name || item.translated?.name }}
+                            </template>
+                        </sw-entity-multi-select>
+                    </mt-card>
+                </template>
+            </sw-card-view>
+        </template>
+    </sw-page>
+{% endblock %}

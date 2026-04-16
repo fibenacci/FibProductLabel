@@ -1,0 +1,45 @@
+{
+  "fib-product-label": {
+    "module": {
+      "title": "Produktlabels",
+      "description": "Wiederverwendbare Labels für Produkte verwalten.",
+      "navigation": "Produktlabels"
+    },
+    "list": {
+      "title": "Produktlabels",
+      "buttonCreate": "Label erstellen",
+      "columnName": "Name",
+      "columnColor": "Farbe",
+      "columnPriority": "Priorität",
+      "columnActive": "Aktiv",
+      "columnValidFrom": "Gültig ab",
+      "columnValidTo": "Gültig bis",
+      "emptyState": "Erstes Produktlabel anlegen",
+      "deleteConfirm": "Soll das Label „%name%“ wirklich gelöscht werden?"
+    },
+    "detail": {
+      "title": "Zugeordnete Produkte",
+      "titleNew": "Produktlabel erstellen",
+      "titleEdit": "Produktlabel bearbeiten",
+      "cardGeneral": "Label-Informationen",
+      "buttonSave": "Speichern",
+      "buttonCancel": "Abbrechen",
+      "fieldName": "Label-Name",
+      "fieldColor": "Farbe",
+      "fieldPriority": "Priorität",
+      "fieldActive": "Aktiv",
+      "fieldValidFrom": "Gültig ab",
+      "fieldValidTo": "Gültig bis",
+      "fieldProducts": "Produkte",
+      "messageSaveError": "Das Produktlabel konnte nicht gespeichert werden.",
+      "messageLoadError": "Das Produktlabel konnte nicht geladen werden."
+    },
+    "productAssignment": {
+      "tabTitle": "Labels",
+      "cardTitle": "Zugeordnete Produktlabels",
+      "cardDescription": "Wiederverwendbare Labels zuweisen, die auf der Produktdetailseite und in Produktboxen angezeigt werden.",
+      "placeholder": "Labels auswählen...",
+      "emptyState": "Diesem Produkt sind noch keine Labels zugeordnet."
+    }
+  }
+}
