@@ -13,7 +13,7 @@ Manage and display product labels (e.g., "Sale", "New") with priority and validi
 - **Composer Scripts**: 
     - `composer run phpstan` (Max Level)
     - `composer run phpunit`
-    - `composer run csfixer`
+    - `composer run csfixer`  
 - **CI/CD**: Automatic validation and release creation via GitHub Actions.
 
 ## 🚀 Quick Start
@@ -25,6 +25,14 @@ docker-compose up -d
 docker logs -f fib_product_label_dev
 ```
 The plugin will be installed and the Administration built automatically.
+
+## 📈 Future Improvements
+- **Advanced Admin UI**: Make label list fully sortable and searchable.
+- **Granular Visibility**: Configuration to show/hide labels in specific components (PDP, Listing, Search, Wishlist).
+- **Rule Builder Integration**: Dynamic visibility based on complex conditions.
+- **Icon Support**: Allow selecting and displaying Material Icons within labels.
+- **Storefront Filtering**: Make labels filterable in product listings.
+- **Elasticsearch (ES)**: Enable ES indexing for labels to ensure high-performance filtering.
 
 ---
 *For technical details and architecture rationale, see [ARCHITECTURE.md](./ARCHITECTURE.md).*
