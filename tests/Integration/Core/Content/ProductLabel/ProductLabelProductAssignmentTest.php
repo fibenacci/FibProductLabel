@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Fib\ProductLabel\Tests\Integration\Core\Content\ProductLabel;
 
-use Fib\ProductLabel\Core\Content\ProductLabel\ProductLabelCollection;
 use Fib\ProductLabel\Core\Content\ProductLabel\Aggregate\ProductLabelProduct\ProductLabelProductCollection;
+use Fib\ProductLabel\Core\Content\ProductLabel\ProductLabelCollection;
 use Fib\ProductLabel\Core\Content\ProductLabel\ProductLabelEntity;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Content\Product\ProductCollection;
