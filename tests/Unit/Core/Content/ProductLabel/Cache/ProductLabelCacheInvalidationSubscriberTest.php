@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fib\ProductLabel\Tests\Unit\Core\Content\ProductLabel\Cache;
 
+use Fib\ProductLabel\Core\Content\ProductLabel\Aggregate\ProductLabelProduct\ProductLabelProductEntity;
 use Fib\ProductLabel\Core\Content\ProductLabel\Cache\ProductLabelCacheInvalidationSubscriber;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -11,11 +12,11 @@ use Shopware\Core\Framework\Adapter\Cache\CacheInvalidator;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityWriteResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
-use Shopware\Core\Framework\DataAbstractionLayer\Write\WriteResult;
 use Shopware\Core\Framework\Uuid\Uuid;
 
 final class ProductLabelCacheInvalidationSubscriberTest extends TestCase
@@ -39,20 +40,10 @@ final class ProductLabelCacheInvalidationSubscriberTest extends TestCase
         $productId = Uuid::randomHex();
         $context   = Context::createDefaultContext();
 
-        $mappingEntity = new class($productId) extends \Shopware\Core\Framework\DataAbstractionLayer\Entity {
-            public function __construct(private readonly string $productId)
-            {
-            }
-
-            public function get(string $property): mixed
-            {
-                if ($property === 'productId') {
-                    return $this->productId;
-                }
-
-                return null;
-            }
-        };
+        $mappingEntity = new ProductLabelProductEntity();
+        $mappingEntity->setUniqueIdentifier(Uuid::randomHex());
+        $mappingEntity->setProductId($productId);
+        $mappingEntity->setProductLabelId($labelId);
 
         $searchResult = new EntitySearchResult(
             'product_product_label',
@@ -109,14 +100,15 @@ final class ProductLabelCacheInvalidationSubscriberTest extends TestCase
         $productId = Uuid::randomHex();
         $context   = Context::createDefaultContext();
 
-        $writeResult = $this->createMock(WriteResult::class);
-        $writeResult->method('getPayload')->willReturn([
-            'productId'      => $productId,
-            'productLabelId' => $labelId,
-        ]);
+        $entityWriteResult = new EntityWriteResult(
+            $labelId,
+            ['productId' => $productId, 'productLabelId' => $labelId],
+            'product_product_label',
+            EntityWriteResult::OPERATION_INSERT
+        );
 
         $mappingEvent = $this->createMock(EntityWrittenEvent::class);
-        $mappingEvent->method('getWriteResults')->willReturn([$writeResult]);
+        $mappingEvent->method('getWriteResults')->willReturn([$entityWriteResult]);
 
         $event = $this->createMock(EntityWrittenContainerEvent::class);
         $event->method('getPrimaryKeys')->willReturn([]);

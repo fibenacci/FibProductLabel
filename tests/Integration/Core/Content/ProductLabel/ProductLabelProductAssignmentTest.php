@@ -77,10 +77,11 @@ class ProductLabelProductAssignmentTest extends TestCase
             'products' => [['id' => $productId, 'versionId' => Defaults::LIVE_VERSION]],
         ]], $context);
 
-        // Remove the product assignment
-        $labelRepo->update([[
-            'id'       => $labelId,
-            'products' => [],
+        // Remove the product assignment explicitly via mapping repository
+        $mappingRepo = static::getContainer()->get('fib_product_label_product.repository');
+        $mappingRepo->delete([[
+            'productLabelId' => $labelId,
+            'productId'      => $productId,
         ]], $context);
 
         $criteria = new Criteria([$labelId]);
