@@ -11,6 +11,10 @@ use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Framework\Adapter\Cache\CacheTagCollector;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 
+/**
+ * This service converts the DAL ProductLabelEntity objects into lean Struct objects 
+ * for the storefront and handles granular cache tagging.
+ */
 final class ProductLabelPageDataLoader
 {
     public function __construct(
@@ -22,7 +26,9 @@ final class ProductLabelPageDataLoader
     {
         $collection = new ProductLabelCollectionStruct();
 
-        $labels = $product->getExtension('productLabels');
+        // Get the labels assigned to the product via the Extension.
+        // The association name 'fibProductLabels' is defined in ProductLabelProductExtension.
+        $labels = $product->getExtension('fibProductLabels');
 
         if (!$labels instanceof EntityCollection) {
             return $collection;
@@ -38,6 +44,7 @@ final class ProductLabelPageDataLoader
             $color    = $label->getColor();
             $priority = $label->getPriority();
 
+            // Skip labels that have no content to display
             if ($name === '' && $color === '' && $priority === 0) {
                 continue;
             }
@@ -50,8 +57,10 @@ final class ProductLabelPageDataLoader
             ));
         }
 
+        // Add a specific tag for this product's labels to allow precise cache invalidation
         $this->cacheTagCollector->addTag('product-label-route-' . $product->getId());
 
+        // Also add tags for each individual label to invalidate the product cache if a label changes
         foreach ($labelIds as $labelId) {
             $this->cacheTagCollector->addTag('product-label-' . $labelId);
         }
@@ -60,9 +69,8 @@ final class ProductLabelPageDataLoader
     }
 
     /**
-     * Leave this here for the specific use-case and just prevent type narrow issue on mixed stuff above.
-     * for now this kind of trade-off is fair enough.
-     *
+     * Helper to safely extract translated strings from the 'translated' array.
+     * 
      * @param array<string, mixed> $translated
      */
     private function getTranslatedString(array $translated, string $key, string $default = ''): string
