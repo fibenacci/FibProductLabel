@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "506a1b433b15dd29c562eb07cdbe8ca3",
+    "content-hash": "22dba492282a28f8915d6ae7fb5b2011",
     "packages": [
         {
             "name": "brick/math",
@@ -11399,15 +11399,15 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.33",
+            "version": "2.1.49",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/37982d6fc7cbb746dda7773530cda557cdf119e1",
-                "reference": "37982d6fc7cbb746dda7773530cda557cdf119e1",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d0082955396e7f5ba19cf298224b85e1099f0ed8",
+                "reference": "d0082955396e7f5ba19cf298224b85e1099f0ed8",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2|^8.0"
+                "php": "^7.4|^8.0"
             },
             "conflict": {
                 "phpstan/phpstan-shim": "*"
@@ -11448,7 +11448,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-28T20:30:03+00:00"
+            "time": "2026-04-16T21:10:58+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -13339,10 +13339,10 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
