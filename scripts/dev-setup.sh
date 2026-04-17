@@ -12,6 +12,10 @@ echo "Installing and activating FibProductLabel..."
 php bin/console plugin:refresh
 php bin/console plugin:install --activate FibProductLabel
 
+echo "Preparing Administration Build..."
+# Required for SW 6.6+ to recognize plugin administration components
+php bin/console bundle:dump
+
 echo "Building Administration..."
 ./bin/build-administration.sh
 
