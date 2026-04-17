@@ -12,7 +12,7 @@ use Shopware\Core\Framework\Adapter\Cache\CacheTagCollector;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 
 /**
- * This service converts the DAL ProductLabelEntity objects into lean Struct objects 
+ * This service converts the DAL ProductLabelEntity objects into lean Struct objects
  * for the storefront and handles granular cache tagging.
  */
 final class ProductLabelPageDataLoader
@@ -70,7 +70,7 @@ final class ProductLabelPageDataLoader
 
     /**
      * Helper to safely extract translated strings from the 'translated' array.
-     * 
+     *
      * @param array<string, mixed> $translated
      */
     private function getTranslatedString(array $translated, string $key, string $default = ''): string

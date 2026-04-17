@@ -9,6 +9,7 @@ use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityWriteResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -56,6 +57,7 @@ final class ProductLabelCacheInvalidationSubscriber implements EventSubscriberIn
         $mappingEvent = $event->getEventByEntityName(self::MAPPING_ENTITY);
 
         if ($mappingEvent instanceof EntityWrittenEvent) {
+            /** @var EntityWriteResult $writeResult */
             foreach ($mappingEvent->getWriteResults() as $writeResult) {
                 $payload = $writeResult->getPayload();
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fib\ProductLabel\Tests\Integration\Core\Content\ProductLabel;
 
 use Fib\ProductLabel\Core\Content\ProductLabel\ProductLabelCollection;
+use Fib\ProductLabel\Core\Content\ProductLabel\Aggregate\ProductLabelProduct\ProductLabelProductCollection;
 use Fib\ProductLabel\Core\Content\ProductLabel\ProductLabelEntity;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Content\Product\ProductCollection;
@@ -78,6 +79,7 @@ class ProductLabelProductAssignmentTest extends TestCase
         ]], $context);
 
         // Remove the product assignment explicitly via mapping repository
+        /** @var EntityRepository<ProductLabelProductCollection> $mappingRepo */
         $mappingRepo = static::getContainer()->get('fib_product_label_product.repository');
         $mappingRepo->delete([[
             'productLabelId' => $labelId,

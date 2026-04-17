@@ -27,7 +27,7 @@ class ProductLabelCacheInvalidatorSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            // Use a high priority to ensure cache invalidation happens before other subscribers 
+            // Use a high priority to ensure cache invalidation happens before other subscribers
             // that might rely on the updated state.
             EntityWrittenContainerEvent::class => [
                 ['onEntityWritten', 2000],
@@ -48,7 +48,7 @@ class ProductLabelCacheInvalidatorSubscriber implements EventSubscriberInterface
 
     /**
      * Get tags for products and their associated categories to ensure listings are updated.
-     * 
+     *
      * @param list<string> $productIds
      *
      * @return list<string>
@@ -64,7 +64,7 @@ class ProductLabelCacheInvalidatorSubscriber implements EventSubscriberInterface
     /**
      * Resolve product IDs from written labels or mappings.
      * We use direct DBAL queries here to avoid the overhead of the DAL during cache invalidation.
-     * 
+     *
      * @return list<string>
      */
     private function getAffectedProductIds(EntityWrittenContainerEvent $event): array
