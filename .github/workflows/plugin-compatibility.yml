@@ -18,7 +18,7 @@ jobs:
         include:
           - shopware: '6.7.2.2'
             php: '8.3'
-          - shopware: '6.6.1.0'
+          - shopware: '6.6.10.15'
             php: '8.2'
     steps:
       - name: Clone Code
@@ -70,6 +70,12 @@ jobs:
           CONTAINER_NAME="shop-${{ strategy.job-index }}"
           docker exec $CONTAINER_NAME bash -c 'cd /var/www/html/custom/plugins/FibProductLabel && composer run phpunit'
 
+      - name: Install shopware-cli
+        uses: friends-of-shopware/setup-shopware-cli@v1
+
+      - name: Validate Extension
+        run: shopware-cli extension validate .
+
       - name: Stop Docker
         if: always()
         run: |
@@ -77,3 +83,38 @@ jobs:
           if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
             docker stop $CONTAINER_NAME
           fi
+
+  release:
+    name: Create Release
+    needs: quality
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Code
+        uses: actions/checkout@v4
+
+      - name: Install shopware-cli
+        uses: friends-of-shopware/setup-shopware-cli@v1
+
+      - name: Build and Zip extension
+        run: |
+          # The zip command will use the version from composer.json or create one
+          shopware-cli extension zip . --no-wait
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: FibProductLabel
+          path: "*.zip"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "*.zip"
+          tag_name: v${{ github.run_number }}
+          name: Release v${{ github.run_number }}
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
