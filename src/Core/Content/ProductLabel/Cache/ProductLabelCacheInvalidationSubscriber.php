@@ -61,10 +61,6 @@ final class ProductLabelCacheInvalidationSubscriber implements EventSubscriberIn
             foreach ($mappingEvent->getWriteResults() as $writeResult) {
                 $payload = $writeResult->getPayload();
 
-                if (!\is_array($payload)) {
-                    continue;
-                }
-
                 $productId      = $payload['productId'] ?? null;
                 $productLabelId = $payload['productLabelId'] ?? null;
 
