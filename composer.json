@@ -52,14 +52,11 @@
       "Fib\\ProductLabel\\Tests\\": "tests/"
     }
   },
-  "bin": [
-    "bin/phpunit"
-  ],
   "scripts": {
     "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon.dist src tests/Unit tests/Integration",
     "csfixer": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes",
     "csfixer:check": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --diff --allow-risky=yes",
-    "phpunit": "bin/phpunit"
+    "phpunit": "php bin/phpunit"
   },
   "config": {
     "allow-plugins": {
