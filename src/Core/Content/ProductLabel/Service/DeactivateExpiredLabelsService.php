@@ -43,7 +43,7 @@ class DeactivateExpiredLabelsService
             $expiredLabelIds->getIds()
         );
 
-        if (!empty($updates)) {
+        if ($updates !== []) {
             $this->productLabelRepository->update($updates, $context);
         }
     }

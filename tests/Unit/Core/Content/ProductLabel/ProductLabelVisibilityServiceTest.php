@@ -43,7 +43,6 @@ class ProductLabelVisibilityServiceTest extends TestCase
         // Check Sorting
         $sortings = $labelCriteria->getSorting();
         static::assertCount(1, $sortings);
-        static::assertInstanceOf(FieldSorting::class, $sortings[0]);
         static::assertSame('priority', $sortings[0]->getField());
         static::assertSame(FieldSorting::DESCENDING, $sortings[0]->getDirection());
     }

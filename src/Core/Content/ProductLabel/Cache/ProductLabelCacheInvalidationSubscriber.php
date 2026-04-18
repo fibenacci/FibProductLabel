@@ -57,18 +57,18 @@ final class ProductLabelCacheInvalidationSubscriber implements EventSubscriberIn
         $mappingEvent = $event->getEventByEntityName(self::MAPPING_ENTITY);
 
         if ($mappingEvent instanceof EntityWrittenEvent) {
-            /** @var EntityWriteResult $writeResult */
+            /** @var EntityWriteResult<string> $writeResult */
             foreach ($mappingEvent->getWriteResults() as $writeResult) {
                 $payload = $writeResult->getPayload();
 
                 $productId      = $payload['productId'] ?? null;
                 $productLabelId = $payload['productLabelId'] ?? null;
 
-                if (!empty($productId)) {
+                if (is_string($productId)) {
                     $tags[] = 'product-label-route-' . $productId;
                 }
 
-                if (!empty($productLabelId)) {
+                if (is_string($productLabelId)) {
                     $tags[] = 'product-label-' . $productLabelId;
                 }
             }
@@ -77,7 +77,7 @@ final class ProductLabelCacheInvalidationSubscriber implements EventSubscriberIn
         /** @var list<string> $tags */
         $tags = array_values(array_unique($tags));
 
-        if (empty($tags)) {
+        if ($tags === []) {
             return;
         }
 
@@ -101,7 +101,7 @@ final class ProductLabelCacheInvalidationSubscriber implements EventSubscriberIn
         foreach ($mappingIds->getEntities() as $mappingEntity) {
             $productId = $mappingEntity->get('productId');
 
-            if (!empty($productId)) {
+            if (is_string($productId)) {
                 $tags[] = 'product-label-route-' . $productId;
             }
         }

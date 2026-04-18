@@ -14,6 +14,6 @@ class ProductLabelCollectionTest extends TestCase
     public function testCollectionCanBeInstantiated(): void
     {
         $collection = new ProductLabelCollection();
-        static::assertInstanceOf(ProductLabelCollection::class, $collection);
+        static::assertCount(0, $collection);
     }
 }

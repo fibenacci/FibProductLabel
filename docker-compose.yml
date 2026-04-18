@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   shopware:
     image: dockware/dev:latest

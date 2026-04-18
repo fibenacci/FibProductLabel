@@ -39,7 +39,7 @@ class ProductLabelCacheInvalidatorSubscriber implements EventSubscriberInterface
     {
         $productIds = $this->getAffectedProductIds($event);
 
-        if (empty($productIds)) {
+        if ($productIds === []) {
             return;
         }
 

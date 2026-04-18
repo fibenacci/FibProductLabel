@@ -16,6 +16,9 @@ final class ProductLabelCollectionStruct extends Collection
         return 'swag_product_label_collection';
     }
 
+    /**
+     * @return class-string<ProductLabelStruct>
+     */
     protected function getExpectedClass(): string
     {
         return ProductLabelStruct::class;

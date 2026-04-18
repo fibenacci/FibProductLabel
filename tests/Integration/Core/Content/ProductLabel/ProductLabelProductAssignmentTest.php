@@ -54,7 +54,7 @@ class ProductLabelProductAssignmentTest extends TestCase
         static::assertInstanceOf(ProductLabelEntity::class, $label);
 
         static::assertNotNull($label->getProducts());
-        static::assertSame(1, $label->getProducts()->count());
+        static::assertCount(1, $label->getProducts());
         static::assertNotNull($label->getProducts()->get($productId));
     }
 
@@ -93,7 +93,7 @@ class ProductLabelProductAssignmentTest extends TestCase
         static::assertInstanceOf(ProductLabelEntity::class, $label);
 
         static::assertInstanceOf(ProductCollection::class, $label->getProducts());
-        static::assertSame(0, $label->getProducts()->count());
+        static::assertCount(0, $label->getProducts());
     }
 
     public function testProductExposesLabelsViaExtension(): void
@@ -127,7 +127,7 @@ class ProductLabelProductAssignmentTest extends TestCase
         $labels = $product->getExtension('fibProductLabels');
 
         static::assertInstanceOf(ProductLabelCollection::class, $labels);
-        static::assertSame(1, $labels->count());
+        static::assertCount(1, $labels);
     }
 
     // -------------------------------------------------------------------------
