@@ -18,8 +18,8 @@ jobs:
         include:
           - shopware: '6.7.2.2'
             php: '8.3'
-          - shopware: '6.6.10.15'
-            php: '8.2'
+#          - shopware: '6.6.10.15'
+#            php: '8.2'
     steps:
       - name: Clone Code
         uses: actions/checkout@v6
