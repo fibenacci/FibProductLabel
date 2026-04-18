@@ -31,43 +31,51 @@ jobs:
 
       - name: Start Docker
         run: |
-          # Use unique container name to avoid conflicts in parallel runs
-          CONTAINER_NAME="shop-${{ strategy.job-index }}"
+          # Use unique container name based on matrix to avoid conflicts
+          CONTAINER_NAME="shop-${{ matrix.shopware }}-${{ matrix.php }}"
+          # Remove dots for valid container name
+          CONTAINER_NAME=${CONTAINER_NAME//./-}
           docker run --rm --name $CONTAINER_NAME --env PHP_VERSION=${{ matrix.php }} -d dockware/shopware:${{ matrix.shopware }}
           sleep 30
           docker logs $CONTAINER_NAME || true
           
       - name: Upload into Docker
         run: |
-          CONTAINER_NAME="shop-${{ strategy.job-index }}"
+          CONTAINER_NAME="shop-${{ matrix.shopware }}-${{ matrix.php }}"
+          CONTAINER_NAME=${CONTAINER_NAME//./-}
           docker cp $(pwd)/. $CONTAINER_NAME:/var/www/html/custom/plugins/FibProductLabel
           docker exec $CONTAINER_NAME bash -c 'sudo chown www-data:www-data /var/www/html/custom/plugins -R'
 
       - name: Install Plugin Dependencies
         run: |
-          CONTAINER_NAME="shop-${{ strategy.job-index }}"
+          CONTAINER_NAME="shop-${{ matrix.shopware }}-${{ matrix.php }}"
+          CONTAINER_NAME=${CONTAINER_NAME//./-}
           docker exec $CONTAINER_NAME bash -c 'cd /var/www/html/custom/plugins/FibProductLabel && composer install --no-interaction --no-progress'
 
       - name: PHP-CS-Fixer (Coding Style)
         run: |
-          CONTAINER_NAME="shop-${{ strategy.job-index }}"
+          CONTAINER_NAME="shop-${{ matrix.shopware }}-${{ matrix.php }}"
+          CONTAINER_NAME=${CONTAINER_NAME//./-}
           docker exec $CONTAINER_NAME bash -c 'cd /var/www/html/custom/plugins/FibProductLabel && composer run csfixer:check'
 
       - name: PHPStan (Static Analysis)
         run: |
-          CONTAINER_NAME="shop-${{ strategy.job-index }}"
+          CONTAINER_NAME="shop-${{ matrix.shopware }}-${{ matrix.php }}"
+          CONTAINER_NAME=${CONTAINER_NAME//./-}
           docker exec $CONTAINER_NAME bash -c 'cd /var/www/html/custom/plugins/FibProductLabel && composer run phpstan'
 
       - name: Install and Activate Plugin
         run: |
-          CONTAINER_NAME="shop-${{ strategy.job-index }}"
+          CONTAINER_NAME="shop-${{ matrix.shopware }}-${{ matrix.php }}"
+          CONTAINER_NAME=${CONTAINER_NAME//./-}
           docker exec $CONTAINER_NAME bash -c 'php bin/console plugin:refresh'
           docker exec $CONTAINER_NAME bash -c 'php bin/console plugin:install FibProductLabel --activate'
           docker exec $CONTAINER_NAME bash -c 'php bin/console cache:clear'
 
       - name: PHPUnit (Tests)
         run: |
-          CONTAINER_NAME="shop-${{ strategy.job-index }}"
+          CONTAINER_NAME="shop-${{ matrix.shopware }}-${{ matrix.php }}"
+          CONTAINER_NAME=${CONTAINER_NAME//./-}
           docker exec $CONTAINER_NAME bash -c 'cd /var/www/html/custom/plugins/FibProductLabel && composer run phpunit'
 
       - name: Install shopware-cli
@@ -79,7 +87,8 @@ jobs:
       - name: Stop Docker
         if: always()
         run: |
-          CONTAINER_NAME="shop-${{ strategy.job-index }}"
+          CONTAINER_NAME="shop-${{ matrix.shopware }}-${{ matrix.php }}"
+          CONTAINER_NAME=${CONTAINER_NAME//./-}
           if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
             docker stop $CONTAINER_NAME
           fi

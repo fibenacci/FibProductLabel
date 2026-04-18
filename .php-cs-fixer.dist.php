@@ -7,7 +7,7 @@ $finder = PhpCsFixer\Finder::create()
         __DIR__ . '/src',
         __DIR__ . '/tests',
     ])
-    ->exclude(['Resources', 'var']);
+    ->exclude(['Resources', 'var', 'bin']);
 
 return (new PhpCsFixer\Config())
     ->setCacheFile('.build/cache/.php-cs-fixer.cache')

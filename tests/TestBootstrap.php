@@ -16,4 +16,5 @@ return (new TestBootstrapper())
     ->setProjectDir($projectDir)
     ->setForceInstall(false)
     ->addActivePlugins('FibProductLabel')
+    ->addCallingPlugin()
     ->bootstrap();
