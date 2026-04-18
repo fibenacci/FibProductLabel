@@ -99,7 +99,7 @@ jobs:
       - name: Build and Zip extension
         run: |
           # The zip command will use the version from composer.json or create one
-          shopware-cli extension zip . --no-wait
+          shopware-cli extension zip .
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
