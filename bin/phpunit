@@ -1,0 +1,29 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$pluginDir = dirname(__DIR__);
+$projectDir = dirname($pluginDir, 3);
+
+// Search for PHPUnit in Shopware root first, then in plugin vendor
+$rootBin = $projectDir . '/vendor/bin/phpunit';
+$pluginBin = $pluginDir . '/vendor/bin/phpunit';
+
+$bin = file_exists($rootBin) ? $rootBin : $pluginBin;
+
+if (!file_exists($bin)) {
+    echo "PHPUnit binary not found. Please run 'composer install'.\n";
+    exit(1);
+}
+
+// Pass all arguments and ensure the config is set to the plugin's phpunit.xml.dist
+$args = array_slice($argv, 1);
+if (!in_array('-c', $args) && !in_array('--configuration', $args)) {
+    array_unshift($args, '--configuration=' . $pluginDir . '/phpunit.xml.dist');
+}
+
+$command = sprintf('%s %s', escapeshellarg($bin), implode(' ', array_map('escapeshellarg', $args)));
+
+passthru($command, $exitCode);
+exit($exitCode);
