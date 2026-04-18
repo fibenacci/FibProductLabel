@@ -71,7 +71,7 @@ jobs:
           docker exec $CONTAINER_NAME bash -c 'cd /var/www/html/custom/plugins/FibProductLabel && composer run phpunit'
 
       - name: Install shopware-cli
-        uses: friends-of-shopware/setup-shopware-cli@v1
+        uses: shopware/setup-shopware-cli@v1
 
       - name: Validate Extension
         run: shopware-cli extension validate .
@@ -94,7 +94,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install shopware-cli
-        uses: friends-of-shopware/setup-shopware-cli@v1
+        uses: shopware/shopware-cli-action@v3
 
       - name: Build and Zip extension
         run: |

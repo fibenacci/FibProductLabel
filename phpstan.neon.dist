@@ -1,3 +1,6 @@
+includes:
+    - vendor/shopware/core/DevOps/StaticAnalyze/PHPStan/extension.neon
+
 parameters:
     level: max
     paths:
@@ -10,10 +13,10 @@ parameters:
         analyse:
             - src/Resources/*
     tmpDir: var/phpstan
-    treatPhpDocTypesAsCertain: false
-    reportUnmatchedIgnoredErrors: false
-
-# Shopware core configuration
-# includes:
-#     - vendor/shopware/core/DevOps/StaticAnalyze/PHPStan/extension.neon
-#     - vendor/shopware/core/DevOps/StaticAnalyze/PHPStan/core-rules.neon
+    treatPhpDocTypesAsCertain: true
+    reportUnmatchedIgnoredErrors: true
+    checkFunctionNameCase: true
+    checkInternalClassCaseSensitivity: true
+    reportAnyTypeWideningInVarTag: true
+    checkMissingCallableSignature: true
+    checkMissingVarTagTypehint: true
