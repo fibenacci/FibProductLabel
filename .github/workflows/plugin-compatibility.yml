@@ -68,7 +68,7 @@ jobs:
       - name: PHPUnit (Tests)
         run: |
           CONTAINER_NAME="shop-${{ strategy.job-index }}"
-          docker exec $CONTAINER_NAME bash -c 'cd /var/www/html/custom/plugins/FibProductLabel && composer run phpunit'
+          docker exec $CONTAINER_NAME bash -c 'cd /var/www/html && vendor/bin/phpunit -c custom/plugins/FibProductLabel/phpunit.xml.dist'
 
       - name: Install shopware-cli
         uses: shopware/shopware-cli-action@v3
