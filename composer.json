@@ -1,9 +1,15 @@
 {
   "name": "fib/product-label",
-  "description": "Product label management for Shopware 6",
+  "description": "Enhance your Shopware store with custom product labels. Easily manage and schedule labels for special offers, new arrivals, and more directly within the administration area.",
   "type": "shopware-platform-plugin",
   "license": "MIT",
   "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Benjamin Letzel",
+      "email": "benjamin.letzel@protonmail.com"
+    }
+  ],
   "require": {
     "shopware/core": "*",
     "shopware/storefront": "*"
@@ -22,6 +28,18 @@
     "label": {
       "de-DE": "Fib Product Label",
       "en-GB": "Fib Product Label"
+    },
+    "description": {
+      "de-DE": "Erweitern Sie Ihren Shopware-Store mit individuellen Produkt-Labels. Verwalten und planen Sie Labels für Sonderangebote, Neuheiten und mehr einfach im Administration-Bereich.",
+      "en-GB": "Enhance your Shopware store with custom product labels. Easily manage and schedule labels for special offers, new arrivals, and more directly within the administration area."
+    },
+    "manufacturerLink": {
+      "de-DE": "https://www.fibenacci.de",
+      "en-GB": "https://www.fibenacci.de"
+    },
+    "supportLink": {
+      "de-DE": "https://www.fibenacci.de/support",
+      "en-GB": "https://www.fibenacci.de/support"
     }
   },
   "autoload": {
