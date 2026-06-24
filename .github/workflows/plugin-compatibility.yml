@@ -24,7 +24,7 @@ jobs:
 #            php: '8.2'
     steps:
       - name: Clone Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -95,7 +95,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install shopware-cli
         uses: shopware/shopware-cli-action@v3
